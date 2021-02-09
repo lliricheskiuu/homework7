@@ -5,17 +5,17 @@ import random as rnd
 
 # 1.
 
-# my_list = [rnd.randint(1, 100) for value in range(1, 20)]
-# print(my_list)
+my_list = [rnd.randint(1, 100) for value in range(1, 20)]
+print(my_list)
 
 # 2.
 
-# my_list = []
-#
-# for value in range(1, 20):
-#     my_list.append(rnd.randint(1, 100))
-#
-# print(my_list)
+my_list = []
+
+for value in range(1, 20):
+    my_list.append(rnd.randint(1, 100))
+
+print(my_list)
 
 ###
 
@@ -24,18 +24,18 @@ import random as rnd
 # с помощью модуля random в диапазоне от -10 до 10 по каждой оси.
 
 
-# def create_random_point():
-#     point = (rnd.randint(-10, 10),
-#              rnd.randint(-10, 10),
-#              rnd.randint(-10, 10))
-#     return point
-#
-#
-# triangle = {"A": create_random_point(),
-#             "B": create_random_point(),
-#             "C": create_random_point()}
-#
-# print(triangle)
+def create_random_point():
+    point = (rnd.randint(-10, 10),
+             rnd.randint(-10, 10),
+             rnd.randint(-10, 10))
+    return point
+
+
+triangle = {"A": create_random_point(),
+            "B": create_random_point(),
+            "C": create_random_point()}
+
+print(triangle)
 
 ###
 
@@ -45,13 +45,14 @@ import random as rnd
 # my_str = 'I'm the string'
 # Печатает ***I'm the string***
 
-# def my_print(string):
-#     string = "***" + string + "***"
-#     return string
-#
-#
-# my_str = str(input("Enter your string:"))
-# print(my_print(my_str))
+
+def my_print(string):
+    string = "***" + string + "***"
+    return string
+
+
+my_str = str(input("Enter your string:"))
+print(my_print(my_str))
 
 ###
 
@@ -59,7 +60,7 @@ import random as rnd
 # а) Напечатать имя самого молодого человека. Если возраст совпадает - напечатать все имена.
 # б) Напечатать самое длинное имя. Если длина имени совпадает - напечатать все имена.
 # в) Посчитать среднее количество лет всех людей из списка.
-#
+# попытка без интернета: (неуспешная)
 # persons = [{"name": "John", "age": 15},
 # {"name": "Jack", "age": 45},
 # {"name": "Max", "age": 10},
@@ -119,3 +120,62 @@ else:
 # в)
 
 print('Average age:', sum(ages) // len(ages))
+
+###
+
+# 5) Даны два словаря my_dict_1 и my_dict_2.
+# а) Создать список из ключей, которые есть в обоих словарях.
+# б) Создать список из ключей, которые есть в первом, но нет во втором словаре.
+# в) Создать новый словарь из пар {ключ:значение}, для ключей, которые есть в первом, но нет во втором словаре.
+# г) Объединить эти два словаря в новый словарь по правилу:
+# если ключ есть только в одном из двух словарей - поместить пару ключ:значение,
+# если ключ есть в двух словарях - поместить пару {ключ: [значение_из_первого_словаря, значение_из_второго_словаря]},
+
+my_dict_1 = {1: "q", 2: "w", 3: "e", 4: "r", 5: "t"}
+my_dict_2 = {2: "q", 7: "u", 21: "l", 4: "j", 5: "b"}
+
+my_list_1 = []
+
+set_dict_1 = set(my_dict_1)
+set_dict_2 = set(my_dict_2)
+
+# а)
+
+for key in set_dict_1.intersection(set_dict_2):
+    my_list_1.append(key)
+print(my_list_1)
+
+# б)
+
+my_list_2 = []
+
+for key in set_dict_1:
+    if list(my_dict_2).count(key) == 0:
+        my_list_2.append(key)
+print(my_list_2)
+
+# в)
+
+res_dict_1 = {}
+
+for key, value in my_dict_1.items():
+    if list(my_dict_2).count(key) == 0:
+        res_dict_1[key] = value
+print(res_dict_1)
+
+# г)
+
+res_dict_2 = {}
+
+for key, value in my_dict_1.items():
+    if list(my_dict_2).count(key) == 0:
+        res_dict_2[key] = value
+
+for key, value in my_dict_2.items():
+    if list(my_dict_1).count(key) == 0:
+        res_dict_2[key] = value
+
+for key in set_dict_1.intersection(set_dict_2):
+    res_dict_2[key] = my_dict_1[key], my_dict_2[key]
+
+print(res_dict_2)
