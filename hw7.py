@@ -59,4 +59,63 @@ import random as rnd
 # а) Напечатать имя самого молодого человека. Если возраст совпадает - напечатать все имена.
 # б) Напечатать самое длинное имя. Если длина имени совпадает - напечатать все имена.
 # в) Посчитать среднее количество лет всех людей из списка.
+#
+# persons = [{"name": "John", "age": 15},
+# {"name": "Jack", "age": 45},
+# {"name": "Max", "age": 10},
+# {"name": "Kirill", "age": 25},
+# {"name": "Damir", "age": 10}]
 
+# names = []
+# i = 0
+# min_age = my_list[i]["age"]
+#
+# for i in range(len(my_list)):
+#     if my_list[i]["age"] <= min_age:
+#         min_age = my_list[i]["age"]
+#         names.clear()
+#         names.append(my_list[i]["name"])
+#     i += 1
+#
+# print("The youngest:", ', '.join(names))
+
+from collections import defaultdict
+
+persons = [
+    {"name": "Yugo", "age": 27},
+    {"name": "Norman", "age": 12},
+    {"name": "Emma", "age": 12},
+    {"name": "Ray", "age": 12}
+]
+
+age_by_names = defaultdict(list)
+len_name_by_names = defaultdict(list)
+ages = []
+
+for i in persons:
+    name = i['name']
+    age = i['age']
+    age_by_names[age].append(name)
+    len_name_by_names[len(name)].append(name)
+    ages.append(age)
+
+# print("\n")
+# print(age_by_names)
+# print(len_name_by_names, "\n")
+
+# а)
+
+min_age = min(age_by_names)
+print('The youngest:', age_by_names[min_age])
+
+# б)
+
+max_len_name = max(len_name_by_names)
+if len(len_name_by_names[max_len_name]) > 1:
+    print('The longest names:', len_name_by_names[max_len_name])
+else:
+    print('The longest name:', len_name_by_names[max_len_name])
+
+# в)
+
+print('Average age:', sum(ages) // len(ages))
